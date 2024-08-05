@@ -7,6 +7,7 @@ const public_users = express.Router();
 
 public_users.post("/register", (req, res) => {
   const { username, password } = req.body
+  console.log(users)
   if (username && password) {
     if (!isValid(username)) {
       users.push({ username, password })
