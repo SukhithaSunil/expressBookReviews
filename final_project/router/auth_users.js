@@ -26,7 +26,6 @@ const authenticatedUser = (username, password) => { //returns boolean
 //only registered users can login
 regd_users.post("/login", (req, res) => {
   const { username, password } = req.body
-  console.log(users)
   if (username && password) {
     if (isValid(username)) {
       if (authenticatedUser(username, password)) {
@@ -52,11 +51,9 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
   const { review } = req.body
   const username = req.user.data
   const book = books[isbn]
-  console.log(book.reviews)
   if (book) {
     const currentReviews = book.reviews
     currentReviews[username] = review
-    console.log(book.reviews)
     return res.send(`review added/modified for book available on isbn:${isbn}`);
   }
   else
@@ -68,12 +65,10 @@ regd_users.delete("/auth/review/:isbn", (req, res) => {
   const { isbn } = req.params
   const username = req.user.data
   const book = books[isbn]
-  console.log(book.reviews)
   if (book) {
     const currentReviews = book.reviews
     if (currentReviews[username]) {
       delete currentReviews[username]
-      console.log(currentReviews)
       return res.send(`review deleted for book available on isbn:${isbn}`);
     }
     else
